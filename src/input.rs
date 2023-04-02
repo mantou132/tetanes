@@ -156,7 +156,7 @@ impl InputRegisters for Input {
             FourPlayer::Disabled => self.joypads[slot].read(),
             FourPlayer::FourScore => {
                 if self.joypads[slot].index() < 8 {
-                    self.joypads[slot].read()
+                    self.joypads[slot].read() | (self.joypads[slot + 2].read() << 1)
                 } else if self.joypads[slot + 2].index() < 8 {
                     self.joypads[slot + 2].read()
                 } else if self.signatures[slot].index() < 8 {
@@ -188,7 +188,7 @@ impl InputRegisters for Input {
             FourPlayer::Disabled => self.joypads[slot].peek(),
             FourPlayer::FourScore => {
                 if self.joypads[slot].index() < 8 {
-                    self.joypads[slot].peek()
+                    self.joypads[slot].peek() | (self.joypads[slot + 2].peek() << 1)
                 } else if self.joypads[slot + 2].index() < 8 {
                     self.joypads[slot + 2].peek()
                 } else if self.signatures[slot].index() < 8 {
